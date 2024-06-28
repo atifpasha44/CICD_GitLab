@@ -31,7 +31,7 @@ pipeline {
         stage('plan') {
             steps {
                 script {
-                    sh 'terraform plan -out="planfile"'
+                    sh 'terraform plan "planfile"'
                 }
                 post {
                     success {
