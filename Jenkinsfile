@@ -4,8 +4,6 @@ pipeline {
     environment {
         AWS_ACCESS_KEY_ID = credentials('MY_AWS_KEY')
         AWS_SECRET_ACCESS_KEY = credentials('MY_AWS_ACCESS_KEY')
-        AWS_DEFAULT_REGION = 'us-east-1'
-        PATH = '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
     }
     
     stages {
