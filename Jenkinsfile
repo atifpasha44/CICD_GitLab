@@ -2,7 +2,6 @@ pipeline {
     agent any
     
     environment {
-        TF_VAR_gitlab_token = credentials('GITLAB_ACCESS_TOKEN')
         AWS_ACCESS_KEY_ID = credentials('MY_AWS_KEY')
         AWS_SECRET_ACCESS_KEY = credentials('MY_AWS_ACCESS_KEY')
         AWS_DEFAULT_REGION = 'us-east-1'
