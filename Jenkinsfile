@@ -7,6 +7,17 @@ pipeline {
     }
     
     stages {
+            stage('checkout') {
+            steps {
+                 script{
+                        dir("terraform")
+                        {
+                            git "https://github.com/atifpasha44/CICD_GitLab.git"
+                        }
+                    }
+                }
+            }
+
         stage('validate') {
             steps {
                 script {
