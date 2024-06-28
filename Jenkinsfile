@@ -8,7 +8,7 @@ pipeline {
     
     stages {
             stage('checkout') {
-            steps {
+              steps {
                  script{
                         dir("terraform")
                         {
