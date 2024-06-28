@@ -31,7 +31,7 @@ pipeline {
         stage('plan') {
             steps {
                 script {
-                    sh 'terraform plan "planfile"'
+                    sh "pwd;cd terraform/ ; terraform plan -out tfplan"
                 }
                 post {
                     success {
