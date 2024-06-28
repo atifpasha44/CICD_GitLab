@@ -29,7 +29,6 @@ pipeline {
         }
         
         stage('plan') {
-            dependsOn 'validate'
             steps {
                 script {
                     sh 'terraform plan -out="planfile"'
