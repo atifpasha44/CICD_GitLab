@@ -1,0 +1,31 @@
+name: Deploy Terraform Infrastructure
+
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow on push to the main branch
+  workflow_dispatch:  # Allow manual triggering of the workflow
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest  # Use the latest version of Ubuntu
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2  # Checkout the repository so we can access Terraform files
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1  # Set up Terraform CLI
+      with:
+        terraform_version: 1.0.0  # Specify the version of Terraform to use
+
+    - name: Terraform Init
+      run: terraform init  # Initialize Terraform configuration
+
+    - name: Terraform Plan
+      run: terraform plan -out=tfplan  # Create a Terraform execution plan
+
+    - name: Terraform Apply
+      run: terraform apply -auto-approve tfplan  # Apply the Terraform configuration changes
+
+    # Optionally, you can add steps to output deployment information or run post-deployment scripts
