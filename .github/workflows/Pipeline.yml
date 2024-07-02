@@ -20,11 +20,6 @@ jobs:
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1  # Set up Terraform CLI
-      with:
-        terraform_version: 1.0.0  # Specify the version of Terraform to use
-
-    - name: Configure AWS credentials
-      run: echo "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY}" >> $GITHUB_ENV && echo "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_KEY}" >> $GITHUB_ENV
 
     - name: Terraform Init
       run: terraform init  # Initialize Terraform configuration
