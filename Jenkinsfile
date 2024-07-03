@@ -1,72 +1,72 @@
-pipeline {
-    agent any
+// pipeline {
+//     agent any
     
-    environment {
-        AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
-        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
-    }
+//     environment {
+//         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
+//         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+//     }
     
-    stages {
-            stage('checkout') {
-              steps {
-                 script{
-                        dir("terraform")
-                        {
-                            git "https://github.com/atifpasha44/CICD_GitLab.git"
-                        }
-                    }
-                }
-            }
+//     stages {
+//             stage('checkout') {
+//               steps {
+//                  script{
+//                         dir("terraform")
+//                         {
+//                             git "https://github.com/atifpasha44/CICD_GitLab.git"
+//                         }
+//                     }
+//                 }
+//             }
 
-        stage('validate') {
-            steps {
-                script {
-                    sh 'terraform --version'
-                    sh 'terraform init -backend-config="tfstate.config"'
-                    sh 'terraform validate'
-                }
-            }
-        }
+//         stage('validate') {
+//             steps {
+//                 script {
+//                     sh 'terraform --version'
+//                     sh 'terraform init -backend-config="tfstate.config"'
+//                     sh 'terraform validate'
+//                 }
+//             }
+//         }
         
-       stage('Plan') {
-            steps {
-                sh 'pwd;cd terraform/ ; terraform init'
-                sh "pwd;cd terraform/ ; terraform plan -out tfplan"
-                sh 'pwd;cd terraform/ ; terraform show -no-color tfplan > tfplan.txt'
-                }
-                post {
-                    success {
-                        archiveArtifacts 'planfile'
-                    }
-                }
-            }
+//        stage('Plan') {
+//             steps {
+//                 sh 'pwd;cd terraform/ ; terraform init'
+//                 sh "pwd;cd terraform/ ; terraform plan -out tfplan"
+//                 sh 'pwd;cd terraform/ ; terraform show -no-color tfplan > tfplan.txt'
+//                 }
+//                 post {
+//                     success {
+//                         archiveArtifacts 'planfile'
+//                     }
+//                 }
+//             }
         
-        stage('apply') {
-            when {
-                expression {
-                    currentBuild.result == null || currentBuild.result == 'SUCCESS'
-                }
-            }
-            steps {
-                input 'Proceed with Terraform apply?'
-                script {
-                    sh 'terraform apply -input=false planfile'
-                }
-            }
-        }
+//         stage('apply') {
+//             when {
+//                 expression {
+//                     currentBuild.result == null || currentBuild.result == 'SUCCESS'
+//                 }
+//             }
+//             steps {
+//                 input 'Proceed with Terraform apply?'
+//                 script {
+//                     sh 'terraform apply -input=false planfile'
+//                 }
+//             }
+//         }
         
-        stage('destroy') {
-            when {
-                expression {
-                    currentBuild.result == null || currentBuild.result == 'SUCCESS'
-                }
-            }
-            steps {
-                input 'Proceed with Terraform destroy?'
-                script {
-                    sh 'terraform destroy --auto-approve'
-                }
-            }
-        }
-    }
-}
+//         stage('destroy') {
+//             when {
+//                 expression {
+//                     currentBuild.result == null || currentBuild.result == 'SUCCESS'
+//                 }
+//             }
+//             steps {
+//                 input 'Proceed with Terraform destroy?'
+//                 script {
+//                     sh 'terraform destroy --auto-approve'
+//                 }
+//             }
+//         }
+//     }
+// }
