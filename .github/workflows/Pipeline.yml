@@ -24,7 +24,7 @@ jobs:
         terraform_version: 1.0.0  # Specify the version of Terraform to use
  
     - name: Terraform Init
-      run: terraform init  # Initialize Terraform configuration
+      run: terraform init-backend-config="tfstate.config"  # Initialize Terraform configuration
  
     - name: Terraform Plan
       run: terraform plan -out=tfplan  # Create a Terraform execution plan
