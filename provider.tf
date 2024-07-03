@@ -1,7 +1,3 @@
-provider "aws" {
-  region = "us-east-1"  # Example configuration parameter
-  # other configuration parameters as needed
-}
 terraform {
   required_providers {
     aws = {
@@ -9,4 +5,8 @@ terraform {
       # version constraints if necessary
     }
   }
+}
+provider "aws" {
+  region = "us-east-1"  # Example configuration parameter
+  # other configuration parameters as needed
 }
